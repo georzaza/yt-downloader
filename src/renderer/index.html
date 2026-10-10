@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; img-src 'self' data:; style-src 'self' 'unsafe-inline'; script-src 'self'; font-src 'self';"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YT Music Downloader</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo">♪</span>
+        <div>
+          <h1>YT Music Downloader</h1>
+          <p class="sub">yt-dlp nightly · search · dedup</p>
+        </div>
+      </div>
+      <div class="status">
+        <span id="ytdlpPill" class="pill pill-warn">yt-dlp: checking…</span>
+        <span id="ffmpegPill" class="pill pill-warn">ffmpeg: checking…</span>
+        <button id="setupBtn" class="btn">Set up tools</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1. Output folder</h2>
+        <div class="row">
+          <input id="outputDir" type="text" class="input grow" placeholder="Output folder…" />
+          <button id="chooseOutputBtn" class="btn">Browse…</button>
+          <button id="openOutputBtn" class="btn btn-ghost">Open</button>
+          <button id="scanLengthBtn" class="btn btn-ghost">Scan folder length</button>
+          <button id="reloadStateBtn" class="btn btn-ghost">Reload saved</button>
+        </div>
+        <p id="libraryStats" class="hint"></p>
+
+        <h2>2. Song list</h2>
+        <div class="tabs">
+          <button class="tab active" data-tab="file">File (.txt / .csv)</button>
+          <button class="tab" data-tab="text">Paste / URL</button>
+        </div>
+
+        <div id="tab-file" class="tabpanel">
+          <div class="row">
+            <input id="inputFile" type="text" class="input grow" placeholder="No file selected" readonly />
+            <button id="chooseInputBtn" class="btn">Choose file…</button>
+          </div>
+          <p class="hint">
+            TXT: one song per line like <code>Artist - Title</code> (optionally <code>- https://…</code>).
+            CSV: columns such as <code>title</code>, <code>artist</code>, optional <code>url</code>,
+            <code>shazam_track_id</code>, <code>duration</code>.
+          </p>
+        </div>
+
+        <div id="tab-text" class="tabpanel hidden">
+          <textarea
+            id="inputText"
+            class="textarea"
+            rows="6"
+            placeholder="Paste URLs or lines like 'Artist - Title', one per line"
+          ></textarea>
+        </div>
+
+        <div class="row end">
+          <button id="analyzeBtn" class="btn btn-primary">Analyze</button>
+        </div>
+        <div id="analyzeProgress" class="progress hidden">
+          <div class="bar"></div>
+          <span class="progress-label"></span>
+        </div>
+      </section>
+
+      <section id="resultsCard" class="card hidden">
+        <div class="results-head">
+          <h2>3. Review &amp; download</h2>
+          <div class="toolbar">
+            <label class="chk"><input type="checkbox" id="embedChk" checked /> Embed metadata &amp; cover</label>
+            <select id="filterSelect" class="candidate-select" title="Filter">
+              <option value="all">All songs</option>
+              <option value="missing">Not in folder</option>
+              <option value="exists">In folder</option>
+            </select>
+            <select id="sortSelect" class="candidate-select" title="Sort">
+              <option value="default">Sort: default</option>
+              <option value="exists">Sort: missing first</option>
+              <option value="status">Sort: status</option>
+              <option value="title">Sort: title</option>
+            </select>
+            <button id="refreshStatusBtn" class="btn btn-ghost">Refresh folder status</button>
+            <button id="selectConfidentBtn" class="btn btn-ghost">Select confident</button>
+            <button id="selectAllBtn" class="btn btn-ghost">Select all</button>
+            <button id="deselectAllBtn" class="btn btn-ghost">Deselect all</button>
+            <button id="downloadBtn" class="btn btn-primary">Download selected</button>
+          </div>
+        </div>
+        <div id="counts" class="counts"></div>
+        <div id="items" class="items"></div>
+      </section>
+
+      <section id="summaryCard" class="card hidden">
+        <h2>Summary</h2>
+        <div id="summary"></div>
+        <div class="row end">
+          <button id="openResultsBtn" class="btn">Open results file</button>
+          <button id="openFolderBtn" class="btn">Open folder</button>
+        </div>
+      </section>
+
+      <section class="card log-card">
+        <h2>Log</h2>
+        <pre id="log" class="log"></pre>
+      </section>
+    </main>
+
+    <script src="renderer.js"></script>
+  </body>
+</html>

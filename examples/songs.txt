@@ -1,0 +1,5 @@
+# Example TXT song list.
+# One song per line. Format: Artist - Title   (optionally  - https://url)
+Rick Astley - Never Gonna Give You Up
+Daft Punk - Harder Better Faster Stronger - https://www.youtube.com/watch?v=gAjR4_CbPpQ
+a-ha - Take On Me

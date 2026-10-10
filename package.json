@@ -1,0 +1,18 @@
+{
+  "name": "yt-music-downloader",
+  "version": "0.1.0",
+  "description": "Download a list of songs (URL / TXT / CSV) with yt-dlp nightly, with search-matching, dedup and a simple UI.",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron .",
+    "setup": "node scripts/setup-binaries.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.0"
+  },
+  "dependencies": {
+    "music-metadata": "^10.6.0"
+  }
+}
